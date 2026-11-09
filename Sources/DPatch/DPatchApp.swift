@@ -29,14 +29,14 @@ enum Main {
 }
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
-    func applicationDidFinishLaunching(_ notification: Notification) {
+    func applicationDidFinishLaunching(_: Notification) {
         NSApp.setActivationPolicy(.regular)
         NSApp.activate(ignoringOtherApps: true)
         // Keep the scheduled scan pointing at this copy of the app if it was moved.
         if Scheduler.needsRepair { try? Scheduler.apply() }
     }
 
-    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { true }
+    func applicationShouldTerminateAfterLastWindowClosed(_: NSApplication) -> Bool { true }
 }
 
 struct DPatchApp: App {

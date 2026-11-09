@@ -1,0 +1,26 @@
+# SwiftLint gates on what a formatter can't see: naming, API misuse, common bugs.
+# Rules that fight the house style are switched off; everything else keeps its default
+# severity, and CI runs with `--strict` so the bar is zero warnings.
+# Run locally with: `swiftlint lint --strict`
+
+included:
+  - Sources
+  - Scripts
+  - Tests
+
+disabled_rules:
+  - identifier_name                 # 1-2 character locals (s, df, os) are the house style
+  - type_name                       # short decoder helper names (V) are fine
+  - line_length                     # long SwiftUI chains and interpolated strings are accepted
+  - nesting                         # types nest one or two levels deep by design
+  - trailing_comma                  # trailing commas need Swift 6.1; the package is tools 5.9
+  - large_tuple                     # an occasional 3-tuple beats a throwaway struct
+  - optional_data_string_conversion # predates the rule; rewriting it gains nothing
+
+cyclomatic_complexity:
+  warning: 20
+  error: 40
+
+function_body_length:
+  warning: 150
+  error: 300

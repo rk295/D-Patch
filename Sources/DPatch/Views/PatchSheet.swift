@@ -143,7 +143,7 @@ struct PatchSheet: View {
         }
         guard NSWorkspace.shared.open(url) else {
             NSAlert(error: NSError(domain: "D-Patch", code: 1, userInfo: [NSLocalizedDescriptionKey:
-                "Could not open Terminal. Run the script yourself: bash \(ScriptGenerator.shellQuote(url.path))"])).runModal()
+                    "Could not open Terminal. Run the script yourself: bash \(ScriptGenerator.shellQuote(url.path))"])).runModal()
             return
         }
         launched = url

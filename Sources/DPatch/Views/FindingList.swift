@@ -94,7 +94,6 @@ private struct ListHeader: View {
     }
 }
 
-
 struct FindingRow: View {
     @EnvironmentObject var model: AppModel
     let finding: Finding

@@ -71,7 +71,7 @@ enum Inventory {
     static func macOSItem() -> InventoryItem {
         let v = ProcessInfo.processInfo.operatingSystemVersion
         let version = v.patchVersion > 0 ? "\(v.majorVersion).\(v.minorVersion).\(v.patchVersion)"
-                                         : "\(v.majorVersion).\(v.minorVersion)"
+            : "\(v.majorVersion).\(v.minorVersion)"
         return InventoryItem(kind: .macos, name: "macOS", version: version,
                              aliases: ["macos", "macosx"], vendorHint: "apple", bundleID: "com.apple.macos")
     }

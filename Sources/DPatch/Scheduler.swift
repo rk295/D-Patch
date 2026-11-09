@@ -33,7 +33,8 @@ enum Scheduler {
         try FileManager.default.createDirectory(at: plistURL.deletingLastPathComponent(), withIntermediateDirectories: true)
         let data = try PropertyListSerialization.data(
             fromPropertyList: plist(executable: exe, hour: Prefs.autoscanHour, minute: Prefs.autoscanMinute),
-            format: .xml, options: 0)
+            format: .xml, options: 0
+        )
         try data.write(to: plistURL, options: .atomic)
         let status = try launchctl(["bootstrap", "gui/\(uid)", plistURL.path])
         if status != 0 {

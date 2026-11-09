@@ -45,7 +45,7 @@ final class FixResolver {
             }
             if item.bundleID?.hasPrefix("com.apple.") == true {
                 return await softwareUpdateFix(item, references: references,
-                                              matching: { $0.localizedCaseInsensitiveContains(item.name) }, fixes)
+                                               matching: { $0.localizedCaseInsensitiveContains(item.name) }, fixes)
             }
             guard let file = item.path.map({ ($0 as NSString).lastPathComponent }),
                   let cask = await caskCatalog()[file], let to = fixes(cask.version) else { return nil }

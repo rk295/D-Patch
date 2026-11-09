@@ -22,16 +22,15 @@ struct Version: Comparable, CustomStringConvertible {
         var currentIsDigit = false
         func flush() {
             guard !current.isEmpty else { return }
-            if currentIsDigit, let n = Int(current.prefix(18)) { parts.append(.num(n)) }
-            else { parts.append(.str(current)) }
+            if currentIsDigit, let n = Int(current.prefix(18)) { parts.append(.num(n)) } else { parts.append(.str(current)) }
             current = ""
         }
         for ch in s {
-            if ch.isASCII && ch.isNumber {
+            if ch.isASCII, ch.isNumber {
                 if !currentIsDigit { flush() }
                 currentIsDigit = true
                 current.append(ch)
-            } else if ch.isASCII && ch.isLetter {
+            } else if ch.isASCII, ch.isLetter {
                 if currentIsDigit { flush() }
                 currentIsDigit = false
                 current.append(ch)

@@ -1,0 +1,41 @@
+# SwiftFormat configuration for D-Patch.
+# Run `swiftformat .` to apply, `swiftformat --lint .` to check (used by CI).
+# Rules that fight the house style of compact one-liners are disabled; everything else
+# stays on so drift is still caught.
+
+--swiftversion 5.9
+
+# The house style keeps short bodies, branches and declarations on one line.
+--disable wrapIfStatementBodies,wrapLoopBodies,wrapFunctionBodies,wrapPropertyBodies
+--disable wrapMultilineStatementBraces
+--disable blankLinesBetweenScopes
+
+# `case let .x(y)` and `case .x(let y)` are both fine; the codebase uses each where it reads best.
+--disable hoistPatternLet
+
+# Switch cases and one-expression bodies keep their explicit `return`.
+--disable redundantReturn
+
+# `self.` is written deliberately where a local has the same name as the method it calls.
+--disable redundantSelf
+
+# Numbers like `86_400` (seconds per day) are grouped on purpose.
+--disable numberFormatting
+
+# Comments are aligned in columns on purpose.
+--disable consecutiveSpaces
+
+# Explicit types such as `let starts: Set<String> = [...]` read better than inferred ones.
+--disable redundantType
+
+# Generic signatures stay explicit; `some Encodable` is not wanted.
+--disable opaqueGenericParameters
+
+# Ranges are written tight: `0..<n`.
+--ranges no-space
+
+# Trailing commas in call argument lists need Swift 6.1; the rule would add them.
+--disable trailingCommas
+
+# Code inside `#if` blocks is not indented relative to the condition.
+--ifdef no-indent

@@ -25,8 +25,8 @@ enum Scanner {
             for hit in hits {
                 let installed = Version(item.version)!
                 guard let range = hit.ranges.filter({ $0.contains(installed) })
-                        .min(by: { Version.isLess($0.end, $1.end) }),
-                      let fix = await resolver.fix(for: item, ranges: hit.ranges, references: hit.cve.references) else { continue }
+                    .min(by: { Version.isLess($0.end, $1.end) }),
+                    let fix = await resolver.fix(for: item, ranges: hit.ranges, references: hit.cve.references) else { continue }
                 findings.append(Finding(cve: hit.cve, item: item, fixedIn: range.fixedInDescription, fix: fix))
             }
         }
@@ -54,7 +54,7 @@ enum Scanner {
                 r.warnings.forEach { print("warning: \($0)") }
                 if Prefs.notifyAfterAutoscan, CommandLine.arguments.contains("--notify") {
                     notify(all == 0 ? "No fixable CVEs found."
-                                    : "\(all) fixable CVEs found (\(crit) critical). Open D-Patch to review.")
+                        : "\(all) fixable CVEs found (\(crit) critical). Open D-Patch to review.")
                 }
             } catch {
                 print("Scan failed: \(error.localizedDescription)")

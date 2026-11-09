@@ -40,7 +40,7 @@ struct NVDClient {
             }
             // Then pick up everything published or changed since the last scan.
             for r in try await fetch(field: "lastMod", severities: kept, from: cache.fetchedThrough.addingTimeInterval(-3600), to: now)
-            where r.published >= start {
+                where r.published >= start {
                 cache.records[r.id] = r
             }
         } else {
@@ -105,7 +105,7 @@ struct NVDClient {
                     do { return try JSONDecoder().decode(NVDResponse.self, from: data) } catch let e as DecodingError {
                         if attempt >= 3 {
                             throw NSError(domain: "NVD", code: 0, userInfo: [NSLocalizedDescriptionKey:
-                                "Unexpected NVD response (\(data.count) bytes): \(Self.describe(e))"])
+                                    "Unexpected NVD response (\(data.count) bytes): \(Self.describe(e))"])
                         }
                         attempt += 1
                         progress("NVD sent an incomplete response, retrying (\(attempt)/3)…")
@@ -114,7 +114,7 @@ struct NVDClient {
                 }
                 if attempt >= 3 || ![403, 429, 500, 502, 503, 504].contains(status) {
                     throw NSError(domain: "NVD", code: status, userInfo: [NSLocalizedDescriptionKey:
-                        "NVD returned HTTP \(status)" + (status == 404 ? " (check the API key)" : "")])
+                            "NVD returned HTTP \(status)" + (status == 404 ? " (check the API key)" : "")])
                 }
             } catch let e as URLError where attempt < 3 {
                 progress("NVD request failed (\(e.code.rawValue)), retrying…")

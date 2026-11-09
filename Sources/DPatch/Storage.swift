@@ -3,11 +3,10 @@ import Foundation
 enum Storage {
     /// ~/Library/Application Support/D-Patch, or $DPATCH_HOME when set.
     static let base: URL = {
-        let url: URL
-        if let home = ProcessInfo.processInfo.environment["DPATCH_HOME"], !home.isEmpty {
-            url = URL(fileURLWithPath: home)
+        let url: URL = if let home = ProcessInfo.processInfo.environment["DPATCH_HOME"], !home.isEmpty {
+            URL(fileURLWithPath: home)
         } else {
-            url = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+            FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
                 .appendingPathComponent("D-Patch")
         }
         try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true)
@@ -18,7 +17,7 @@ enum Storage {
     static var resultsURL: URL { base.appendingPathComponent("results.json") }
     static var logURL: URL { base.appendingPathComponent("autoscan.log") }
 
-    static func load<T: Decodable>(_ type: T.Type, from url: URL) -> T? {
+    static func load<T: Decodable>(_: T.Type, from url: URL) -> T? {
         guard let data = try? Data(contentsOf: url) else { return nil }
         let d = JSONDecoder()
         d.dateDecodingStrategy = .iso8601
