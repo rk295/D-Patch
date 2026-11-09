@@ -11,6 +11,7 @@ struct ContentView: View {
         } detail: {
             FindingList()
                 .searchable(text: $model.search, placement: .toolbar, prompt: "CVE, app or keyword")
+                .safeAreaInset(edge: .bottom) { StatusBar() }
         }
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
@@ -36,7 +37,6 @@ struct ContentView: View {
                 .help("Download and install the fixes for the ticked CVEs")
             }
         }
-        .safeAreaInset(edge: .bottom) { StatusBar() }
         .sheet(item: $patch) { PatchSheet(request: $0) { model.checked.removeAll() } }
         .alert(
             "Scan failed",
